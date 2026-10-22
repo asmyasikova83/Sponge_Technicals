@@ -1,13 +1,14 @@
+##   1, report_rms_ica_spectra_all_subj.py
+##   2. plot_single_spectra.py
+##
 import re
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 from pathlib import Path
 
 chan = ['P3', 'Pz', 'P4', 'O1', 'O2']
 #chan = ['Fp1']
-# --- НАСТРОЙКИ ------------------------------------------------------------
-data_dir = Path(fr"\\MCSSERVER\DB Temp\msasha\Sponge\Sponge_EEG_session3_18Sep2026\pics\spectra_clean_{chan}")
+data_dir = Path(fr'\\MCSSERVER\DB Temp\msasha\Sponge\Sponge_EEG_session4_9Oct2026\pics\{chan}')
 
 C_CLOSE, C_OPEN = "tab:blue", "tab:orange"
 PSD_SCALE  = 1e12          # поставьте 1.0, если в .npy уже масштабированные значения
@@ -111,9 +112,10 @@ ax.semilogy(x, mean_open  * PSD_SCALE, color=C_OPEN,  lw=2.5, zorder=4, label="�
 
 ax.axvspan(*ALPHA_BAND, color="gray", alpha=0.15, zorder=0)
 ax.set_xlim(FMIN, FMAX)
-ax.set_xlabel("Частота (Гц)")
-ax.set_ylabel(f"Мощность (мкВ²/Гц)")
-ax.set_title(f"Chan: {chan} {f.stem.split('_')[-4:-1]} PSD: closed (n={M_closed.shape[0]}) vs open (n={M_open.shape[0]})")
+ax.set_xlabel("Частота (Гц)", fontsize=14)
+ax.set_ylabel(f"Мощность (В²/Гц)", fontsize=14)
+#ax.set_title(f"Chan: {chan} {f.stem.split('_')[-4:-1]} PSD: closed (n={M_closed.shape[0]}) vs open (n={M_open.shape[0]})")
+ax.set_title(f"Sponge EEG: {chan}  PSD: закрытые глаза (n={M_closed.shape[0]}) vs открытые (n={M_open.shape[0]})")
 ax.set_xticks(np.arange(0, FMAX + 1, 5))
 ax.grid(True, which="both", ls="--", alpha=0.3)
 ax.legend(loc="upper right")
